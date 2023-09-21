@@ -1,22 +1,22 @@
 const ErrorHander = require("../utils/errorhandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
-const User=require("../models/useModels");
-const sendToken=require("../utils/jwtToken");
-const sendEmail=require("../utils/sendEmail");
-const crypto=require("crypto");
+const User = require("../models/useModels");
+const sendToken = require("../utils/jwtToken");
+const sendEmail = require("../utils/sendEmail");
+const crypto = require("crypto");
 
 //Register user
-exports.registerUser=catchAsyncErrors(async(req,res,next)=>{
-  const {name,email,password}=req.body;
+exports.registerUser = catchAsyncErrors(async (req, res, next) => {
+  const { name, email, password } = req.body;
 
-  const user= await User.create({
-    name,email,password,avatar:{
-      public_id:"this is a sample id",
-      url:"profilepicUrl"
+  const user = await User.create({
+    name, email, password, avatar: {
+      public_id: "this is a sample id",
+      url: "profilepicUrl"
     },
   });
 
-  sendToken(user,201,res);
+  sendToken(user, 201, res);
 });
 
 
@@ -46,16 +46,16 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
 });
 
 //LOGout user
-exports.logout=catchAsyncErrors(async(req,res,next)=>{
- 
-  res.cookie("token",null,{
-    expires:new Date(Date.now()),
-    httpOnly:true,
+exports.logout = catchAsyncErrors(async (req, res, next) => {
+
+  res.cookie("token", null, {
+    expires: new Date(Date.now()),
+    httpOnly: true,
   })
 
   res.status(200).json({
-    success:true,
-    message:"Logged Out"
+    success: true,
+    message: "Logged Out"
   })
 })
 
@@ -133,3 +133,126 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
 
   sendToken(user, 200, res);
 });
+
+//Get User Details
+exports.getUserDetails = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+  res.status(200).json({
+    success: true,
+    user,
+  })
+})
+
+
+//Update Password
+exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.user.id).select("+password");
+
+  const isPasswordMatched = await user.comparePassword(req.body.oldPassword);
+
+  if (!isPasswordMatched) {
+    return next(new ErrorHander("Old password is incorrect", 400));
+  }
+
+  if (req.body.newPassword !== req.body.confirmPassword) {
+    return next(new ErrorHander("password does not match", 400));
+  }
+
+  user.password = req.body.newPassword;
+
+  await user.save();
+
+  sendToken(user, 200, res);
+});
+
+
+//Update User Profile
+exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
+
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email
+  }
+
+  //cloud
+
+  const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false
+  })
+
+  res.status(200).json({
+    success: true,
+
+  })
+});
+
+//Getall Users
+exports.getAllUser = catchAsyncErrors(async (req, res, next) => {
+  const users = await User.find();
+
+  res.status(200).json({
+    success: true,
+    users,
+  })
+})
+
+
+//Get Single User(admin)
+exports.getSingleUser = catchAsyncErrors(async (req, res, next) => {
+  const user = await User.findById(req.params.id);
+
+  if (!user) {
+    return next(new ErrorHander(`User Does Not exist with id ${req.params.id}`), 400)
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+  })
+})
+
+//Update User Role--Admmin
+exports.updateUserRole = catchAsyncErrors(async (req, res, next) => {
+
+  const newUserData = {
+    name: req.body.name,
+    email: req.body.email,
+    role: req.body.role,
+
+  }
+
+  //cloud
+
+  const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false
+  })
+
+  res.status(200).json({
+    success: true,
+
+  })
+});
+
+
+
+
+//Delete User --Admin
+exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
+
+  const user = await User.findById(req.params.id);
+  if (!user) {
+    return next(new ErrorHander(`User Does Not exist with id ${req.params.id}`), 400)
+  }
+
+  await user.deleteOne();
+
+  res.status(200).json({
+    success: true,
+    message: "User is deleted"
+  })
+});
+
