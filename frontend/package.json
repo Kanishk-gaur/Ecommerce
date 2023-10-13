@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.12.4",
+    "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.14.11",
     "@mui/material": "^5.14.11",
     "@mui/styles": "^5.14.11",
@@ -56,5 +57,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://10.102.136.227:4000"
+  "proxy": "http://10.102.140.200:4000"
 }
