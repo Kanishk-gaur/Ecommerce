@@ -10,13 +10,16 @@ import Products from "./component/Product/Products.js";
 import Search from "./component/Product/Search.js";
 import LoginSignUp from "./component/User/LoginSignUp";
 import store from "./store"
-import { loadUser, } from "./actions/userAction";
+import { loadUser, updatePassword, } from "./actions/userAction";
 import UserOptions from "./component/layout/Header/UserOptions.js"
 import { useSelector } from "react-redux";
 import Profile from "./component/User/Profile";
 import ProtectedRoute from "./component/Route/ProtectedRoute";
 import { RequireAuth } from "./component/Route/PrivateRoute";
 import UpdateProfile from "./component/User/UpdateProfile";
+import UpdatePassword from "./component/User/UpdatePassword"
+import ForgotPassword from "./component/User/ForgotPassword";
+import ResetPassword from "./component/User/ResetPassword";
 
 
 
@@ -53,6 +56,9 @@ function App() {
   */}
         <Route path='/account' element= {<RequireAuth> <Profile/></RequireAuth>}/>
         <Route path='/me/update' element= {<RequireAuth> <UpdateProfile/></RequireAuth>}/>
+        <Route path='/password/update' element= {<RequireAuth> <UpdatePassword/></RequireAuth>}/>
+        <Route path='/password/forgot' element=  {<ForgotPassword/>}/>
+        <Route path='/password/reset/:token' element=  {<ResetPassword/>}/>
       
 
       </Routes>
