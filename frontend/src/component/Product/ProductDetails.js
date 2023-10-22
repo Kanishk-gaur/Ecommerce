@@ -12,6 +12,7 @@ import MetaData from "../layout/MetaData";
 import {addItemsToCart} from "../../actions/cartAction"
 
 
+
 const ProductDetails = ({ match }) => {
   const dispatch = useDispatch();
   const alert=useAlert()

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { clearErrors, login,register } from "../../actions/userAction";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const LoginSignUp = () => {
   const dispatch = useDispatch();
@@ -37,6 +38,7 @@ const LoginSignUp = () => {
   const [avatar, setAvatar] = useState("");
   const [avatarPreview, setAvatarPreview] = useState("/Profile.png");
   const navigate = useNavigate();
+  const location = useLocation();
 
   const loginSubmit = (e) => {
     e.preventDefault();
@@ -75,6 +77,7 @@ const LoginSignUp = () => {
     }
   };
  
+  const redirect = location.search ? location.search.split("=")[1] : "/account"
 
   useEffect(() => {
     if (error) {
@@ -83,9 +86,9 @@ const LoginSignUp = () => {
     }
 
     if(isAuthenticated){
-      navigate("/account") 
+      navigate(redirect);
     }
-  }, [dispatch, error, alert,isAuthenticated,navigate]);
+  }, [dispatch, error, alert,isAuthenticated,navigate,redirect]);
 
   const switchTabs = (e, tab) => {
     if (tab === "login") {
