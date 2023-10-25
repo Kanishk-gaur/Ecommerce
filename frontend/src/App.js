@@ -27,19 +27,23 @@ import axios from "axios";
 import Payment from "./component/Cart/Payment"
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import MyOrders from "./component/Cart/MyOrders"
+import OrderSuccess from "./component/Cart/OrderSuccess"
+
 
 
 function App() {
 
   const { isAuthenticated, user } = useSelector(state => state.user);
 
-  //const [stripeApiKey, setstripeApiKey] = useState("");
+  const [stripeApiKey, setstripeApiKey] = useState(`${process.env.NEXT_STRIPE_API_KEY}`);
 
-  //  async function getStripeApiKey() {
-  //     const data= "sk_test_51O2zCCSIPg36jqFm8CWJ8QGuAsnSUEz7BXQ1PnaDY78jaKoAOIjdPPOZt2E7pRE8KgB18LVzk8JJwjS8zZzkzzR800uHxOBzV3"
-  //     setstripeApiKey(data);
-  //  }
+  async function getStripeApiKey() {
+    const { data } = await axios.get("/api/v1/stripeapikey")
+    setstripeApiKey(data.stripeApiKey);
+  }
 
+   //const stripeApiKey= process.env.STRIPE_API_KEY;
 
   useEffect(() => {
     WebFont.load({
@@ -49,9 +53,9 @@ function App() {
     });
     store.dispatch(loadUser());
 
-    //getStripeApiKey();
+    getStripeApiKey();
   }, []);
- 
+
 
 
   return (
@@ -83,11 +87,14 @@ function App() {
             <Route path='/process/payment' element={<RequireAuth> <Payment /></RequireAuth>} />
           </Elements>
         )} */}
-
-        <Route path='/process/payment' element={<Elements stripe={loadStripe("sk_test_51O2zCCSIPg36jqFm8CWJ8QGuAsnSUEz7BXQ1PnaDY78jaKoAOIjdPPOZt2E7pRE8KgB18LVzk8JJwjS8zZzkzzR800uHxOBzV3")} ><RequireAuth> <Payment /></RequireAuth> </Elements>} />
+        {/* {stripeApiKey &&
+          <Route path='/process/payment' element={<Elements stripe={loadStripe(stripeApiKey)} ><RequireAuth> <Payment /></RequireAuth> </Elements>} />
+        } */}
         {/* <Route path='/process/payment' element={<Elements ><RequireAuth> <Payment /></RequireAuth> </Elements>} /> */}
 
-
+        <Route path='/process/payment' element={<Elements stripe={loadStripe(stripeApiKey)} ><RequireAuth> <Payment /></RequireAuth> </Elements>} />
+        <Route path='/success' element={<RequireAuth> <OrderSuccess/></RequireAuth>} />
+        {/* <Route path='/orders' element={<RequireAuth> <MyOrders /></RequireAuth>} /> */}
       </Routes>
 
       <Footer />
