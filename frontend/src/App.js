@@ -27,8 +27,9 @@ import axios from "axios";
 import Payment from "./component/Cart/Payment"
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
-import MyOrders from "./component/Cart/MyOrders"
+import MyOrders from "./component/Order/MyOrders"
 import OrderSuccess from "./component/Cart/OrderSuccess"
+import OrderDetails from "./component/Order/OrderDetails"
 
 
 
@@ -43,7 +44,7 @@ function App() {
     setstripeApiKey(data.stripeApiKey);
   }
 
-   //const stripeApiKey= process.env.STRIPE_API_KEY;
+  //const stripeApiKey= process.env.STRIPE_API_KEY;
 
   useEffect(() => {
     WebFont.load({
@@ -93,8 +94,9 @@ function App() {
         {/* <Route path='/process/payment' element={<Elements ><RequireAuth> <Payment /></RequireAuth> </Elements>} /> */}
 
         <Route path='/process/payment' element={<Elements stripe={loadStripe(stripeApiKey)} ><RequireAuth> <Payment /></RequireAuth> </Elements>} />
-        <Route path='/success' element={<RequireAuth> <OrderSuccess/></RequireAuth>} />
-        {/* <Route path='/orders' element={<RequireAuth> <MyOrders /></RequireAuth>} /> */}
+        <Route path='/success' element={<RequireAuth> <OrderSuccess /></RequireAuth>} />
+        <Route path='/orders' element={<RequireAuth> <MyOrders /></RequireAuth>} />
+        <Route path='/order/:id' element={<RequireAuth> <OrderDetails /></RequireAuth>} />
       </Routes>
 
       <Footer />
