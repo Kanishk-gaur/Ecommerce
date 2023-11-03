@@ -1,9 +1,9 @@
-import { Fragment } from 'react';
+// import { Fragment } from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate, useLocation } from 'react-router-dom'
 
 export function RequireAuth({ children }) {
-  const { loading, user, isAuthenticated } = useSelector((state) => state.user);
+  const { isAuthenticated } = useSelector((state) => state.user);
 
   const location = useLocation();
 

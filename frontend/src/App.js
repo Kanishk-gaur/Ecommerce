@@ -1,6 +1,6 @@
 import "./App.css";
 import Header from "./component/layout/Header/Header.js";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import WebFont from "webfontloader";
 import React, { useState, useEffect } from "react";
 import Footer from "./component/layout/Footer/Footer";
@@ -10,11 +10,11 @@ import Products from "./component/Product/Products.js";
 import Search from "./component/Product/Search.js";
 import LoginSignUp from "./component/User/LoginSignUp";
 import store from "./store"
-import { loadUser, updatePassword, } from "./actions/userAction";
+import { loadUser } from "./actions/userAction";
 import UserOptions from "./component/layout/Header/UserOptions.js"
 import { useSelector } from "react-redux";
 import Profile from "./component/User/Profile";
-import ProtectedRoute from "./component/Route/ProtectedRoute";
+// import ProtectedRoute from "./component/Route/ProtectedRoute";
 import { RequireAuth } from "./component/Route/PrivateRoute";
 import UpdateProfile from "./component/User/UpdateProfile";
 import UpdatePassword from "./component/User/UpdatePassword"
@@ -39,6 +39,8 @@ import ProcessOrder from "./component/Admin/ProcessOrder";
 import UserList from "./component/Admin/UserList";
 import UpdateUser from "./component/Admin/UpdateUser";
 import ProductReviews from "./component/Admin/ProductReviews";
+import Contact from "./component/layout/Contact/Contact";
+import About from "./component/layout/About/About";
 
 
 
@@ -83,6 +85,8 @@ function App() {
         <Route path="/products/:keyword" element={<Products />} />
         <Route exact path="/search" element={<Search />} />
         <Route exact path="/login" element={<LoginSignUp />} />
+        <Route exact path="/contact" element={<Contact />} />
+        <Route exact path="/about" element={<About />} />
         {/* <ProtectedRoute path="/account" element={<Profile/>} /> */}
         {/* <Route path='/account' element={<ProtectedRoute> <Profile/>  </ProtectedRoute> }/>
   */}

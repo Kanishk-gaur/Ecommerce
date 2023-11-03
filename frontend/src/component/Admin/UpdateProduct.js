@@ -82,7 +82,7 @@ const UpdateProduct = ({ history, match }) => {
     dispatch,
     alert,
     error,
-    history,
+    navigate,
     isUpdated,
     productId,
     product,

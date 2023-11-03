@@ -49,7 +49,7 @@ const OrderList = ({ history }) => {
     }
 
     dispatch(getAllOrders());
-  }, [dispatch, alert, error, deleteError, history, isDeleted]);
+  }, [dispatch, alert, error, deleteError, navigate, isDeleted]);
 
   const columns = [
     { field: "id", headerName: "Order ID", minWidth: 300, flex: 1 },

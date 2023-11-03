@@ -9,7 +9,7 @@ import { getAdminProduct } from "../../actions/productAction";
 import { getAllOrders } from "../../actions/orderAction.js";
 import { getAllUsers } from "../../actions/userAction.js";
 import MetaData from "../layout/MetaData.js";
-import Chart from "chart.js/auto";
+// import Chart from "chart.js/auto";
 
 const Dashboard = () => {
   const dispatch = useDispatch();

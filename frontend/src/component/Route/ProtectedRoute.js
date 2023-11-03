@@ -1,12 +1,14 @@
 import React, { Component, Fragment } from 'react'
 import { useSelector } from 'react-redux'
-import { Navigate, Route,Routes, useLocation } from "react-router-dom";
+import { Navigate, Route,Routes, 
+  // useLocation 
+} from "react-router-dom";
 
 
-const ProtectedRoute = ({children}) => {
-  const {loading,isAuthenticated,user}=useSelector((state)=>state.user);
+const ProtectedRoute = () => {
+  const {loading,isAuthenticated}=useSelector((state)=>state.user);
  //const isAuthenticated = false; // your logic here
- const location = useLocation();
+//  const location = useLocation();
   return (
     <Fragment>
     {loading === false && (

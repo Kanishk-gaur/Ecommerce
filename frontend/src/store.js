@@ -2,7 +2,6 @@ import {  combineReducers,createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk"
 import { composeWithDevTools } from "redux-devtools-extension"
 import { newProductReducer, newReviewReducer, productDetailsReducer, productReducer, productReviewsReducer, productsReducer, reviewReducer } from "./reducres/productReducer";
-import { configureStore } from '@reduxjs/toolkit'
 import {  allUsersReducer, forgotPasswordReducer, profileReducer, userDetailsReducer, userReducer } from "./reducres/userReducer";
 import { cartReducer } from "./reducres/cartReducer";
 import { allOrdersReducer, myOrdersReducer, newOrderReducer, orderDetailsReducer, orderReducer } from "./reducres/orderReducer";
