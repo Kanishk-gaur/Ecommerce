@@ -8,7 +8,7 @@ export function RequireAuth({ children }) {
   const location = useLocation();
 
 
-  if (isAuthenticated === false) {
+  if (isAuthenticated  === false) {
     return <Navigate to="/login" state={{ from: location }} />;
   }
 

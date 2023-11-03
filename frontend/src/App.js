@@ -30,6 +30,18 @@ import { loadStripe } from "@stripe/stripe-js";
 import MyOrders from "./component/Order/MyOrders"
 import OrderSuccess from "./component/Cart/OrderSuccess"
 import OrderDetails from "./component/Order/OrderDetails"
+import Dashboard from "./component/Admin/Dashboard";
+import ProductList from "./component/Admin/ProductList";
+import NewProduct from "./component/Admin/NewProduct";
+import UpdateProduct from "./component/Admin/UpdateProduct";
+import OrderList from "./component/Admin/OrderList";
+import ProcessOrder from "./component/Admin/ProcessOrder";
+import UserList from "./component/Admin/UserList";
+import UpdateUser from "./component/Admin/UpdateUser";
+import ProductReviews from "./component/Admin/ProductReviews";
+
+
+
 
 
 
@@ -97,6 +109,17 @@ function App() {
         <Route path='/success' element={<RequireAuth> <OrderSuccess /></RequireAuth>} />
         <Route path='/orders' element={<RequireAuth> <MyOrders /></RequireAuth>} />
         <Route path='/order/:id' element={<RequireAuth> <OrderDetails /></RequireAuth>} />
+        {/* <Route path='/admin/dashboard' element={<RequireAuth> <Dashboard/></RequireAuth>} /> */}
+        <Route exact path='/admin/dashboard' element={<RequireAuth> <Dashboard /></RequireAuth>} />
+        <Route exact path='/admin/products' element={<RequireAuth> <ProductList /></RequireAuth>} />
+        <Route exact path='/admin/product' element={<RequireAuth> <NewProduct /></RequireAuth>} />
+        <Route exact path='/admin/product/:id' element={<RequireAuth> <UpdateProduct /></RequireAuth>} />
+        <Route exact path='/admin/orders' element={<RequireAuth> <OrderList /></RequireAuth>} />
+        <Route exact path='/admin/order/:id' element={<RequireAuth> <ProcessOrder /></RequireAuth>} />
+        <Route exact path='/admin/users' element={<RequireAuth> <UserList /></RequireAuth>} />
+        <Route exact path='/admin/user/:id' element={<RequireAuth> <UpdateUser /></RequireAuth>} />
+        <Route exact path='/admin/reviews' element={<RequireAuth> <ProductReviews /></RequireAuth>} />
+
       </Routes>
 
       <Footer />
