@@ -9,7 +9,7 @@ import { getAdminProduct } from "../../actions/productAction";
 import { getAllOrders } from "../../actions/orderAction.js";
 import { getAllUsers } from "../../actions/userAction.js";
 import MetaData from "../layout/MetaData.js";
-// import Chart from "chart.js/auto";
+import Chart from "chart.js/auto";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -29,13 +29,13 @@ const Dashboard = () => {
       }
     });
 
-    
+
 
   useEffect(() => {
     dispatch(getAdminProduct());
     dispatch(getAllOrders());
     dispatch(getAllUsers());
-   }, [dispatch]);
+  }, [dispatch]);
 
   let totalAmount = 0;
   orders &&
@@ -50,7 +50,7 @@ const Dashboard = () => {
         label: "TOTAL AMOUNT",
         backgroundColor: ["tomato"],
         hoverBackgroundColor: ["rgb(197, 72, 49)"],
-        data: [0, 4000],
+        data: [0, totalAmount],
       },
     ],
   };
@@ -61,7 +61,7 @@ const Dashboard = () => {
       {
         backgroundColor: ["#00A6B4", "#6800B4"],
         hoverBackgroundColor: ["#4B5000", "#35014F"],
-        data: [outOfStock,products.length-outOfStock],
+        data: [outOfStock, products.length - outOfStock],
       },
     ],
   };
@@ -77,7 +77,7 @@ const Dashboard = () => {
         <div className="dashboardSummary">
           <div>
             <p>
-              Total Amount <br /> ₹2000
+              Total Amount <br /> ₹{totalAmount}
             </p>
           </div>
           <div className="dashboardSummaryBox2">

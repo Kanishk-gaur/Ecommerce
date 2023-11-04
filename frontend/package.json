@@ -19,6 +19,7 @@
     "axios": "^1.5.0",
     "chart.js": "^4.4.0",
     "country-state-city": "^3.2.1",
+    "material-ui-rating": "^4.2.0",
     "ng2-charts": "^5.0.3",
     "overlay-navbar": "^1.2.3",
     "react": "^18.2.0",
