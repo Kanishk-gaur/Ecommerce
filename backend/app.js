@@ -54,6 +54,13 @@ app.post("/api/v1/payment/process",isAuthenticateUser,catchAsyncErrors(async(req
    res.status(200).json({ stripeApiKey: process.env.STRIPE_API_KEY});
   }))
 
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
+});
+
+
 
 
 //middleeware for error
