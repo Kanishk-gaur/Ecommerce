@@ -14,7 +14,9 @@ const stripe = Stripe('sk_test_51O2zCCSIPg36jqFm8CWJ8QGuAsnSUEz7BXQ1PnaDY78jaKoA
 const errorMiddleware = require("./middleware/error");
 
 // Config
-dotenv.config({path:"backend/config/config.env"});
+if(process.env.NODE_ENV!=="PRODUCTION"){
+  require("dotenv").config({ path: "backend/config/config.env" })
+}
 
 app.use(express.json());
 app.use(cookieParser());
