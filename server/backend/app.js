@@ -56,10 +56,10 @@ app.get("/api/v1/stripeapikey", isAuthenticateUser, catchAsyncErrors(async (req,
   res.status(200).json({ stripeApiKey: process.env.STRIPE_API_KEY });
 }))
 
-app.use(express.static(path.join(__dirname, "../../frontend/build")));
+app.use(express.static(path.join(__dirname, "/build")));
 
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../../frontend/build"));
+  res.sendFile(path.resolve(__dirname, "/build"));
 });
 
 
